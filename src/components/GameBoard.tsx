@@ -38,6 +38,13 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
         return row * 8 + column;
     }
 
+    getBoardCellCoords(index: number): { row: number, column: number } {
+        const column = index % 8;
+        const row = (index - column) / 8;
+
+        return { row, column };
+    }
+
     getAdjacentCellCoords(row: number, column: number): number[][] {
         const allAdjacentCellRefs = [
             [row - 1, column - 1], [row - 1, column], [row - 1, column + 1],
@@ -52,8 +59,8 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
         return adjacentRealCellRefs;
     }
 
-    getValidCells(): number[] {
-        const emptyCells = this.state.board.map((status: GameCellStatus, index: number): CellStatusAndIndex => {
+    getValidCells(currentState: GameBoardState): number[] {
+        const emptyCells = currentState.board.map((status: GameCellStatus, index: number): CellStatusAndIndex => {
             const isEmptyCell = status === undefined;
 
             if (isEmptyCell) {
@@ -87,13 +94,13 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
 
             for (let adjacentCellCoordsItem of adjacentCellCoords) {
                 const adjacentCellIndex = this.getBoardCellIndex(adjacentCellCoordsItem[0], adjacentCellCoordsItem[1]);
-                const adjacentCellStatus = this.state.board[adjacentCellIndex];
+                const adjacentCellStatus = currentState.board[adjacentCellIndex];
 
                 const adjacentCellIsPopulatedCell = adjacentCellStatus !== undefined;
 
                 const adjacentCellIsOpponentCell = (
                     adjacentCellIsPopulatedCell &&
-                        this.state.currentPlayerIsWhite ? !adjacentCellStatus : adjacentCellStatus
+                        currentState.currentPlayerIsWhite ? !adjacentCellStatus : adjacentCellStatus
                 );
 
                 if (adjacentCellIsOpponentCell) {
@@ -107,7 +114,7 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
     }
 
     componentWillMount() {
-        this.setState({ validCells: this.getValidCells() });
+        this.setState({ validCells: this.getValidCells(this.state) });
     }
 
     handleCellClick(row: number, column: number) {
@@ -119,13 +126,24 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
         const cellsBefore = this.state.board.slice(0, boardCellIndex);
         const cellsAfter = this.state.board.slice(boardCellIndex + 1);
 
+        const nextBoard = [
+            ...cellsBefore,
+            selectedGameCellStatus,
+            ...cellsAfter
+        ];
+
+        const nextState = {
+            board: nextBoard,
+            currentPlayerIsWhite: !this.state.currentPlayerIsWhite,
+            validCells: []
+        };
+
+        const validCells = this.getValidCells(nextState);
+
         this.setState({
-            board: [
-                ...cellsBefore,
-                selectedGameCellStatus,
-                ...cellsAfter
-            ],
-            currentPlayerIsWhite: !this.state.currentPlayerIsWhite
+            board: nextBoard,
+            currentPlayerIsWhite: !this.state.currentPlayerIsWhite,
+            validCells
         });
     }
 
@@ -170,7 +188,14 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
                 <div>Current Player is White?: <span>{this.state.currentPlayerIsWhite ? 'Yes' : 'No'}</span></div>
 
                 <div>Valid Cells</div>
-                <pre>{JSON.stringify(this.state.validCells)}</pre>
+                <pre style={{ height: '500px', textAlign: 'left' }}>
+                    {
+                        JSON.stringify(
+                            this.state.validCells.map(index => this.getBoardCellCoords(index)),
+                            null,
+                            2)
+                    }
+                </pre>
             </div>
         );
     }

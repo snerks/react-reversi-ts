@@ -22,7 +22,7 @@ class App extends React.Component<null, null> {
                 <span className="icon-bar" />
                 <span className="icon-bar" />
               </button>
-              <a className="navbar-brand" href="#">Othello TS React Redux</a>
+              <a className="navbar-brand" href="#">Reversi TypeScript React Redux</a>
             </div>
             <div id="navbar" className="navbar-collapse collapse">
               <ul className="nav navbar-nav">
