@@ -1,0 +1,1 @@
+export type GameCellStatus = boolean | undefined;

@@ -2,24 +2,28 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import * as renderer from 'react-test-renderer';
 
-import GamePage from './GamePage';
 import GameBoard from './GameBoard';
+import GameCell from './GameCell';
 
-describe('GamePage', () => {
+describe('GameBoard', () => {
     const _component = shallow(
-        <GamePage />
+        <GameBoard board={[]} />
     );
 
     it('renders and matches our snapshot', () => {
         const component = renderer.create(
-            <GamePage />
+            <GameBoard board={[]} />
         );
         const tree = component.toJSON();
         expect(tree).toMatchSnapshot();
     });
 
-    it('contains a GameBoard subcomponent', () => {
-        expect(_component.find(GameBoard)).toHaveLength(1);
+    // it('contains a GameCell subcomponent', () => {
+    //     expect(_component.find(GameCell)).toHaveLength.g;
+    // });
+
+    it('contains the correct number of GameCells', () => {
+        expect(_component.find(GameCell)).toHaveLength(64);
     });
 
     // it('contains the same number of HelloWorld components as greetings', () => {

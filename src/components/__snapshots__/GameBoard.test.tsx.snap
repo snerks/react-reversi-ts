@@ -1,4 +1,4 @@
-exports[`GamePage renders and matches our snapshot 1`] = `
+exports[`GameBoard renders and matches our snapshot 1`] = `
 <table
   className="table table-bordered">
   <tbody>

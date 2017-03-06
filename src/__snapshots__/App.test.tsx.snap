@@ -1,6 +1,6 @@
 exports[`App renders and matches our snapshot 1`] = `
 <div
-  className="container-fluid">
+  className="container">
   <nav
     className="navbar navbar-inverse">
     <div
@@ -54,10 +54,797 @@ exports[`App renders and matches our snapshot 1`] = `
     </div>
   </nav>
   <div
-    className="text-center">
-    <div>
-      GamePage
-    </div>
+    className="text-center"
+    id="game-board">
+    <table
+      className="table table-bordered">
+      <tbody>
+        <tr>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+          <td
+            className="cell">
+            <span
+              style={
+                Object {
+                  "color": null,
+                  "fontSize": "20px",
+                }
+              }>
+               
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 `;

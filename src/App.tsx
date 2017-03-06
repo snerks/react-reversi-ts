@@ -5,7 +5,7 @@ import GamePage from './components/GamePage';
 class App extends React.Component<null, null> {
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container">
         <nav className="navbar navbar-inverse">
           <div className="container-fluid">
             <div className="navbar-header">
@@ -32,7 +32,7 @@ class App extends React.Component<null, null> {
             </div>
           </div>
         </nav>
-        <div className="text-center">
+        <div className="text-center" id="game-board">
           <GamePage />
         </div>
       </div>
