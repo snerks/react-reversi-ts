@@ -1,0 +1,5 @@
+exports[`GamePage renders and matches our snapshot 1`] = `
+<div>
+  GamePage
+</div>
+`;
