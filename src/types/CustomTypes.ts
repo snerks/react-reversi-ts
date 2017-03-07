@@ -1,1 +1,1 @@
-export type GameCellStatus = boolean | undefined;
+export type GameCellIsWhiteStatus = boolean | undefined;

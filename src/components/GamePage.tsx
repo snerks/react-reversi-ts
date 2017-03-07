@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { GameCellStatus } from '../types/CustomTypes';
+import { GameCellIsWhiteStatus } from '../types/CustomTypes';
 import GameBoard from './GameBoard';
 
 export interface GamePageProps {
@@ -8,7 +8,7 @@ export interface GamePageProps {
 
 class GamePage extends React.Component<GamePageProps, {}> {
     render(): JSX.Element {
-        const board: GameCellStatus[] = [
+        const board: GameCellIsWhiteStatus[] = [
             undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined,
             undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined,
             undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined,
