@@ -4,6 +4,8 @@ import './GameBoard.css';
 
 import { GameCellIsWhiteStatus } from '../types/CustomTypes';
 
+import { initialGameBoard } from './GamePage';
+
 import GameCell from './GameCell';
 
 export interface GameBoardProps {
@@ -289,6 +291,38 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
         return result;
     }
 
+    restart() {
+        const nextState = {
+            board: initialGameBoard,
+            currentPlayerIsWhite: false,
+            validCells: []
+        };
+
+        const nextStateValidCells = this.getValidCells(nextState);
+
+        this.setState({
+            board: nextState.board,
+            currentPlayerIsWhite: nextState.currentPlayerIsWhite,
+            validCells: nextStateValidCells
+        });
+    }
+
+    pass() {
+        const nextState = {
+            board: this.state.board,
+            currentPlayerIsWhite: !this.state.currentPlayerIsWhite,
+            validCells: []
+        };
+
+        const nextStateValidCells = this.getValidCells(nextState);
+
+        this.setState({
+            board: nextState.board,
+            currentPlayerIsWhite: nextState.currentPlayerIsWhite,
+            validCells: nextStateValidCells
+        });
+    }
+
     componentWillMount() {
         this.setState({ validCells: this.getValidCells(this.state) });
     }
@@ -301,31 +335,6 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
 
         const capturedCellIndices =
             this.getCapturedCellIndices(this.state.currentPlayerIsWhite, boardCellIndex, this.state);
-
-        // const cellsBefore = this.state.board.slice(0, boardCellIndex);
-
-        // let cellsAfter: GameCellIsWhiteStatus[] = [];
-
-        // if (capturedCellIndices.length) {
-        //     if (capturedCellIndices[0] === 28) {
-        //         const cellsAfter1 = this.state.board.slice(boardCellIndex + 1, 28);
-        //         const cellsAfter2 = this.state.board.slice(28 + 1);
-
-        //         cellsAfter = [
-        //             ...cellsAfter1,
-        //             this.state.currentPlayerIsWhite,
-        //             ...cellsAfter2
-        //         ];
-        //     }
-        // } else {
-        //     cellsAfter = this.state.board.slice(boardCellIndex + 1);
-        // }
-
-        // const nextBoard = [
-        //     ...cellsBefore,
-        //     selectedGameCellStatus,
-        //     ...cellsAfter
-        // ];
 
         const nextBoard: GameCellIsWhiteStatus[] = [];
 
@@ -389,6 +398,33 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
             gameCellRows.push(<tr key={i}>{gameCellColumns}</tr>);
         }
 
+        const discColor = this.state.currentPlayerIsWhite ? 'white' : 'black';
+        const discContent = '🌑';
+
+        const whitePlayerCells = this.state.board.filter(item => item !== undefined && item);
+        const blackPlayerCells = this.state.board.filter(item => item !== undefined && !item);
+
+        const currentPlayerContent = (
+            <div className="alert alert-info" role="alert" style={{ background: '#090' }}>
+                <div style={{ fontSize: '40px', color: discColor }}>
+                    <span>Current Player: {discContent}</span>
+
+                    <div style={{ fontSize: '40px', color: 'black' }}>
+                        <div>White: <span>{whitePlayerCells.length}</span></div>
+                        <div>Black: <span>{blackPlayerCells.length}</span></div>
+
+                        <button onClick={() => this.restart()}>
+                            Restart
+                        </button>
+
+                        <button onClick={() => this.pass()}>
+                            Pass
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+
         return (
             <div>
                 <table className="table table-bordered" style={{ tableLayout: 'fixed' }}>
@@ -397,7 +433,7 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
                     </tbody>
                 </table>
 
-                <div>Current Player: <span>{this.state.currentPlayerIsWhite ? 'White' : 'Black'}</span></div>
+                {currentPlayerContent}
 
                 <div>Valid Cells</div>
                 <pre style={{ height: '500px', textAlign: 'left' }}>
