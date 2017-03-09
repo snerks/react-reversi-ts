@@ -23,12 +23,15 @@
     "@types/react-redux": "^4.4.36",
     "@types/react-test-renderer": "^15.4.2",
     "@types/redux": "^3.6.0",
+    "gh-pages": "^0.12.0",
     "react-scripts-ts": "1.1.6"
   },
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
-  }
+    "eject": "react-scripts-ts eject",
+    "deploy": "npm run build&&gh-pages -d build"
+  },
+  "homepage": "https://snerks.github.io/react-reversi-ts"
 }
