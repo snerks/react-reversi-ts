@@ -3,9 +3,7 @@ import * as React from 'react';
 import './GameBoard.css';
 
 import { GameCellIsWhiteStatus } from '../types/CustomTypes';
-
 import { initialGameBoard } from './GamePage';
-
 import GameCell from './GameCell';
 
 export interface GameBoardProps {
@@ -14,9 +12,7 @@ export interface GameBoardProps {
 
 export interface GameBoardState {
     board: GameCellIsWhiteStatus[];
-
     currentPlayerIsWhite: boolean;
-
     validCells: number[];
 }
 
@@ -159,25 +155,23 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
     getValidCells(currentState: GameBoardState): number[] {
 
         const emptyCells = currentState.board.map(
-            (status: GameCellIsWhiteStatus, index: number): CellStatusAndIndex => {
-                const isEmptyCell = status === undefined;
+            (gameCellIsWhiteStatus: GameCellIsWhiteStatus, index: number): CellStatusAndIndex => {
+                const isEmptyCell = gameCellIsWhiteStatus === undefined;
 
                 if (isEmptyCell) {
                     return {
-                        status,
+                        status: gameCellIsWhiteStatus,
                         index
                     };
                 }
 
                 return {
-                    status,
+                    status: gameCellIsWhiteStatus,
                     index: -1
                 };
             });
 
         const emptyCellsOnly = emptyCells.filter(emptyCell => emptyCell.index > -1);
-        // tslint:disable-next-line:no-console
-        // console.log(`Empty Cells Only: [${emptyCellsOnly}]`);
 
         const emptyCellsWithAdjacentOpponentCell: CellStatusAndIndex[] = [];
 
@@ -185,20 +179,12 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
             const column = emptyCell.index % 8;
             const row = (emptyCell.index - column) / 8;
 
-            const willDebug = emptyCell.index === 18;
-
-            if (willDebug) {
-                // tslint:disable-next-line:no-console
-                console.log('willDebug');
-            }
-
             const adjacentCellLines = this.getAdjacentCellLines(row, column, currentState);
 
             for (let adjacentCellLine of adjacentCellLines) {
                 if (adjacentCellLine.items.length) {
 
                     let adjacentOpponentCellCount = 0;
-                    // let firstAdjacentCellStatusAndIndex = adjacentCellLine.items[0];
 
                     for (let i = 0; i < adjacentCellLine.items.length; i++) {
                         let currentAdjacentCellStatusAndIndex = adjacentCellLine.items[i];
@@ -235,12 +221,6 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
     }
 
     getCapturedCellIndices(currentPlayerIsWhite: boolean, boardCellIndex: number, state: GameBoardState): number[] {
-        // if (boardCellIndex === 20) {
-        //     return [28];
-        // }
-
-        // return [];
-
         let result: number[] = [];
 
         const column = boardCellIndex % 8;
@@ -328,10 +308,7 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
     }
 
     handleCellClick(row: number, column: number) {
-        // alert(`Clicked Row: ${row} - Col: ${column}`);
-
         const boardCellIndex = this.getBoardCellIndex(row, column);
-        // const selectedGameCellStatus: GameCellIsWhiteStatus = this.state.currentPlayerIsWhite;
 
         const capturedCellIndices =
             this.getCapturedCellIndices(this.state.currentPlayerIsWhite, boardCellIndex, this.state);
@@ -383,7 +360,7 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
                 const handleClickFunction = (row: number, column: number) => this.handleCellClick(row, column);
 
                 gameCellColumns.push(
-                    <td key={j} className="cell" width={20} title={`Index: ${boardCellIndex}`}>
+                    <td key={j} className="cell" width={20}>
                         <GameCell
                             row={i}
                             column={j}
@@ -401,25 +378,71 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
         const discColor = this.state.currentPlayerIsWhite ? 'white' : 'black';
         const discContent = '🌑';
 
+        const emptyCells = this.state.board.filter(item => item === undefined);
         const whitePlayerCells = this.state.board.filter(item => item !== undefined && item);
         const blackPlayerCells = this.state.board.filter(item => item !== undefined && !item);
 
+        const isGameFinished = emptyCells.length === 0;
+
+        let winnerName: string = '';
+
+        if (isGameFinished) {
+            const whitePlayerCellCount = whitePlayerCells.length;
+            const blackPlayerCellCount = blackPlayerCells.length;
+
+            if (whitePlayerCellCount === blackPlayerCellCount) {
+                winnerName = 'Neither: It was a Draw.';
+            } else {
+                winnerName = whitePlayerCellCount > blackPlayerCellCount ? 'White' : 'Black';
+            }
+        }
+
         const currentPlayerContent = (
-            <div className="alert alert-info" role="alert" style={{ background: '#090' }}>
-                <div style={{ fontSize: '40px', color: discColor }}>
-                    <span>Current Player: {discContent}</span>
-
-                    <div style={{ fontSize: '40px', color: 'black' }}>
+            <div className="row alert alert-info" role="alert" style={{ background: '#090' }}>
+                {
+                    isGameFinished &&
+                    <div className="col-md-12">
+                        <div style={{ fontSize: '20px', color: winnerName }}>
+                            <span>Winner is {winnerName}!</span>
+                        </div>
+                    </div>
+                }
+                {
+                    !isGameFinished &&
+                    <div className="col-md-12">
+                        <div style={{ fontSize: '20px', color: discColor }}>
+                            <span>Current Player: {discContent}</span>
+                        </div>
+                    </div>
+                }
+                <div className="col-md-12">
+                    <div style={{ fontSize: '20px', color: 'white' }}>
                         <div>White: <span>{whitePlayerCells.length}</span></div>
+                    </div>
+                    <div style={{ fontSize: '20px', color: 'black' }}>
                         <div>Black: <span>{blackPlayerCells.length}</span></div>
-
-                        <button onClick={() => this.restart()}>
-                            Restart
-                        </button>
-
-                        <button onClick={() => this.pass()}>
-                            Pass
-                        </button>
+                    </div>
+                </div>
+                <div className="col-md-12" style={{ fontSize: '20px' }}>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <button onClick={() => this.restart()} style={{ width: '80px', margin: '5px' }}>
+                                Restart
+                            </button>
+                        </div>
+                        {
+                            !isGameFinished &&
+                            <div className="col-md-6">
+                                {
+                                    this.state.validCells.length === 0 && (
+                                        <span style={{ color: 'black' }}>No valid moves</span>
+                                    )
+                                }
+                                <button onClick={() => this.pass()} style={{ width: '80px', margin: '5px' }}>
+                                    Pass
+                                </button>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -435,8 +458,8 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
 
                 {currentPlayerContent}
 
-                <div>Valid Cells</div>
-                <pre style={{ height: '500px', textAlign: 'left' }}>
+                {/*<div>Valid Cells</div>
+                <pre style={{ height: '100px', textAlign: 'left' }}>
                     {
                         JSON.stringify(
                             this.state.validCells.map(index => index),
@@ -444,7 +467,7 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
                             2
                         )
                     }
-                </pre>
+                </pre>*/}
             </div>
         );
     }
