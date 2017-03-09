@@ -19,18 +19,31 @@ class GameCell extends React.Component<GameCellProps, {}> {
 
         const discColor = isOccupied ? isWhite ? 'white' : 'black' : null;
 
-        let emptyCellContent = '\u00a0';
+        let emptyCellText = '\u00a0';
 
         if (!isOccupied && isValid) {
-            emptyCellContent = '\u2713';
+            emptyCellText = '\u2713';
         }
+
+        const emptyCellContent = <span style={{ fontSize: '25px', color: discColor }}>{emptyCellText}</span>;
 
         // const discContent = isOccupied ? '🌑' : emptyCellContent;
         const discContent = isOccupied ? (
-            <i className="glyphicon glyphicon-certificate" aria-hidden="true" />
+            // <i className="glyphicon glyphicon-certificate" aria-hidden="true" />
+            <span
+                style={{
+                    display: 'inline-block',
+                    width: '2em',
+                    height: '2em',
+                    borderRadius: '1em',
+                    margin: '0.25em',
+                    backgroundColor: discColor
+                }}
+            />
         ) : emptyCellContent;
 
-        const content = <span style={{ fontSize: '40px', color: discColor }}>{discContent}</span>;
+        // const content = <span style={{ fontSize: '10px', color: discColor }}>{discContent}</span>;
+        const content = discContent;
 
         return (
             <div

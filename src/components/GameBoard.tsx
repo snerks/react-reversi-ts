@@ -376,8 +376,21 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
         }
 
         const discColor = this.state.currentPlayerIsWhite ? 'white' : 'black';
+
         // const discContent = '🌑';
-        const discContent = <i className="glyphicon glyphicon-certificate" aria-hidden="true" />;
+        // const discContent = <i className="glyphicon glyphicon-certificate" aria-hidden="true" />;
+        const discContent = (
+            <span
+                style={{
+                    display: 'inline-block',
+                    width: '1em',
+                    height: '1em',
+                    borderRadius: '0.5em',
+                    margin: '0.125em',
+                    backgroundColor: discColor
+                }}
+            />
+        );
 
         const emptyCells = this.state.board.filter(item => item === undefined);
         const whitePlayerCells = this.state.board.filter(item => item !== undefined && item);
