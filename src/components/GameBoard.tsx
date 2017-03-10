@@ -14,6 +14,7 @@ export interface GameBoardState {
     board: GameCellIsWhiteStatus[];
     currentPlayerIsWhite: boolean;
     validCells: number[];
+    passCount: number;
 }
 
 interface CellStatusAndIndex {
@@ -32,7 +33,8 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
         this.state = {
             board: props.board,
             currentPlayerIsWhite: false,
-            validCells: []
+            validCells: [],
+            passCount: 0
         };
     }
 
@@ -275,7 +277,8 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
         const nextState = {
             board: initialGameBoard,
             currentPlayerIsWhite: false,
-            validCells: []
+            validCells: [],
+            passCount: 0
         };
 
         const nextStateValidCells = this.getValidCells(nextState);
@@ -283,15 +286,20 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
         this.setState({
             board: nextState.board,
             currentPlayerIsWhite: nextState.currentPlayerIsWhite,
-            validCells: nextStateValidCells
+            validCells: nextStateValidCells,
+            passCount: 0
         });
     }
 
     pass() {
+        // tslint:disable-next-line:no-console
+        // console.log(`pass: currentPlayerIsWhite = ${this.state.currentPlayerIsWhite}`);
+
         const nextState = {
             board: this.state.board,
             currentPlayerIsWhite: !this.state.currentPlayerIsWhite,
-            validCells: []
+            validCells: [],
+            passCount: this.state.passCount + 1
         };
 
         const nextStateValidCells = this.getValidCells(nextState);
@@ -299,12 +307,34 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
         this.setState({
             board: nextState.board,
             currentPlayerIsWhite: nextState.currentPlayerIsWhite,
-            validCells: nextStateValidCells
+            validCells: nextStateValidCells,
+            passCount: nextState.passCount
         });
+    }
+
+    selectRandomValidCell() {
+        if (this.state.validCells.length === 0) {
+            // tslint:disable-next-line:no-console
+            // console.log('No valid cell is available - passing');
+            this.pass();
+            return;
+        }
+
+        const randomValidCellIndex = this.state.validCells[0];
+
+        const { row, column } = this.getBoardCellCoords(randomValidCellIndex);
+
+        this.handleCellClick(row, column);
     }
 
     componentWillMount() {
         this.setState({ validCells: this.getValidCells(this.state) });
+    }
+
+    componentDidUpdate() {
+        if (this.state.currentPlayerIsWhite) {
+            this.selectRandomValidCell();
+        }
     }
 
     handleCellClick(row: number, column: number) {
@@ -332,7 +362,8 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
         const nextState = {
             board: nextBoard,
             currentPlayerIsWhite: !this.state.currentPlayerIsWhite,
-            validCells: []
+            validCells: [],
+            passCount: 0
         };
 
         const validCells = this.getValidCells(nextState);
@@ -340,7 +371,8 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
         this.setState({
             board: nextBoard,
             currentPlayerIsWhite: !this.state.currentPlayerIsWhite,
-            validCells
+            validCells,
+            passCount: 0
         });
     }
 
@@ -396,7 +428,9 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
         const whitePlayerCells = this.state.board.filter(item => item !== undefined && item);
         const blackPlayerCells = this.state.board.filter(item => item !== undefined && !item);
 
-        const isGameFinished = emptyCells.length === 0;
+        // tslint:disable-next-line:no-console
+        // console.log(`passCount = ${this.state.passCount}`);
+        const isGameFinished = (emptyCells.length === 0) || (this.state.passCount > 1);
 
         let winnerName: string = '';
 
@@ -412,12 +446,20 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
         }
 
         const currentPlayerContent = (
-            <div className="row alert alert-info" role="alert" style={{ background: '#090' }}>
+            <div className="row" /* role="alert" */ style={{ background: '#090' }}>
                 {
                     isGameFinished &&
                     <div className="col-md-12">
                         <div style={{ fontSize: '20px', color: winnerName }}>
                             <span>Winner is {winnerName}!</span>
+                        </div>
+                    </div>
+                }
+                {
+                    isGameFinished && this.state.passCount > 1 &&
+                    <div className="col-md-12">
+                        <div style={{ fontSize: '20px', color: winnerName }}>
+                            <span>Both players have passed - game finished early</span>
                         </div>
                     </div>
                 }
@@ -439,22 +481,43 @@ class GameBoard extends React.Component<GameBoardProps, GameBoardState> {
                 </div>
                 <div className="col-md-12" style={{ fontSize: '20px' }}>
                     <div className="row">
-                        <div className="col-md-6">
-                            <button onClick={() => this.restart()} style={{ width: '80px', margin: '5px' }}>
+                        <div className="col-md-12">
+                            <button
+                                onClick={() => this.restart()}
+                                style={{ width: '400px', margin: '5px' }}
+                            >
                                 Restart
                             </button>
                         </div>
                         {
                             !isGameFinished &&
-                            <div className="col-md-6">
-                                {
-                                    this.state.validCells.length === 0 && (
-                                        <span style={{ color: 'black' }}>No valid moves</span>
-                                    )
-                                }
-                                <button onClick={() => this.pass()} style={{ width: '80px', margin: '5px' }}>
-                                    Pass
-                                </button>
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <button
+                                        onClick={() => this.selectRandomValidCell()}
+                                        style={{
+                                            width: '400px', margin: '5px',
+                                            cursor: this.state.validCells.length === 0 ?
+                                                'not-allowed' : 'auto'
+                                        }}
+                                        disabled={this.state.validCells.length === 0}
+                                    >
+                                        Select Random Valid Cell
+                                    </button>
+                                </div>
+                                <div className="col-md-12">
+                                    <button
+                                        onClick={() => this.pass()}
+                                        style={{ width: '400px', margin: '5px' }}
+                                    >
+                                        {
+                                            this.state.validCells.length === 0 && (
+                                                <span style={{ color: 'black' }}>No valid moves: </span>
+                                            )
+                                        }
+                                        <span>Pass</span>
+                                    </button>
+                                </div>
                             </div>
                         }
                     </div>

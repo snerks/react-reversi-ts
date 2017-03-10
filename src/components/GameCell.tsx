@@ -25,7 +25,7 @@ class GameCell extends React.Component<GameCellProps, {}> {
             emptyCellText = '\u2713';
         }
 
-        const emptyCellContent = <span style={{ fontSize: '25px', color: discColor }}>{emptyCellText}</span>;
+        const emptyCellContent = <span style={{ fontSize: '28px', color: discColor }}>{emptyCellText}</span>;
 
         // const discContent = isOccupied ? '🌑' : emptyCellContent;
         const discContent = isOccupied ? (
